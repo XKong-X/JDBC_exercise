@@ -1,0 +1,210 @@
+--运行数据库（开机会自动运行）
+net start 数据库服务名(mysql57)--不要加分号
+
+--停止运行数据库
+net stop 数据库服务名(mysql57)--不要加分号
+
+--访问数据库服务器（登录）
+mysql -u root -p密码(0000)--不要加分号
+
+--显示当前的数据库
+show databases;
+
+--创建数据库
+create database 数据库名;--当数据库已存在时，不创建但会报错
+create database if not exists 数据库名;--当数据库已存在时，不创建也不报错
+
+--使用数据库
+use 数据库名;
+
+--删除数据库
+drop database 数据库名;--当数据库不存在时，会报错
+drop database if exists 数据库名;--当数据库不存在时，不会报错
+
+--查看表结构
+desc 表名;
+
+--查看数据库中的所有表
+show tables;
+
+--创建表
+create table 表名 (变量名 类型, ...);
+create table 表名 (变量名 类型 comment "xxxx", ...);--使用 comment 增加字段说明
+
+--删除表
+drop table 表名;--当表不存在时，会报错
+drop table if exists 表名;--当表不存在时，不会报错
+
+--单行数据 + 全列插入
+insert into 表名 values (值,...);--数量必须和定义表的列的数量及顺序一致，类型也得一致
+
+--多行数据 + 指定列插入
+insert into 表名 (列名, ...) values (值, ...), ...;
+
+--全列查询
+select * from 表名;--查询表中所有列
+
+--指定列查询
+select 列名, ... from 表名;--查询表中指定列
+
+--表达式查询
+select 表达式 from 表名;--加减乘除之类的运算，即针对列进行的临时的运算
+
+--带别名的查询
+select 表达式 as 别名 from 表名;
+
+--单列去重
+select distinct 列名 from 表名;
+
+--多列去重
+select distinct 列名, ... from 表名;--当有多个列时，需要每一个列都相同才会被判定为相同
+
+--查询的时候按某个指定的列排序
+select 列名 from 表名 order by 列名 asc/desc;--asc是升序，desc 是降序，不写默认是升序
+select 表达式 from 表名 order by 表达式 asc/desc;--针对表达式排序
+select 表达式 as 别名 from 表名 order by 别名 asc/desc;--针对别名排序
+
+--查询的时候按多个列排序
+select * from 表名 order by 列名 asc/desc, ... asc/desc, ...;
+
+--条件查询
+select 列名 from 表名 where 条件;--注意，不能使用别名查询
+
+--模糊查询，需要用到通配符_和%
+select * from 表名 where 列名 like "x_";--_表示一个任意字符，不可以表示空字符
+select * from 表名 where 列名 like "x%";--% 表示任意个任意字符,可以表示空字符，x% 表示查询以 x 开头的， %x 表示查询以 x 结尾的， %x% 表示查询包含 x 的
+
+--分页查询
+select * from 表名 limit 想查的个数;
+select * from 表名 limit 想查的个数 offset 下标偏移量;--下标从 0 开始，offest 后面是开始查询的下标
+select * from 表名 limit 想查的个数 , 下标偏移量;--, 可以代替 offset
+
+--修改表
+update 表名 set 列名 = 值, ... where 条件;
+update 表名 set 列名 = 值, ... order by 表达式 limit 想改的个数;
+update 表名 set 列名 = 值, ... ;--修改所有
+
+--删除表中的指定行
+delete from 表名 where 条件;
+delete from 表名 order by 表达式 limit 想删的个数;
+
+--删除整张表中的记录(表还存在，只是变成空表了)
+delete from 表名;
+
+--指示某列不能存储 NULL
+not null
+
+--保证某列的每行必须有唯一的值
+unique
+
+--规定没有给列赋值时的默认值
+default
+
+--not null 和 unique 的结合。确保某列（或两个列多个列的结合）有唯一标识，有助于更容易更快速地找到表中的一个特定的记录
+primary key
+primary key auto_increment--auto_increment 表示自动增量
+
+--外键约束
+foreign key (字段名) references 主表 (列名)--外键用于关联其他表的主键或唯一键，因此父表被关联的那一列必须由 primary key 或 unique 修饰
+
+--将查询出的结果插入另一张表
+insert into 表1 select * from 表2;--列数和类型要匹配
+
+--注释
+-- 或 #
+
+--显示警报内容
+show warnings;
+
+--where 无法与聚合函数一起使用
+
+--count(列名) 返回查询到的数据的数量
+select count(*) from 表名;--显示有多少列，null 也会算进去
+select count(列名) from 表名;--显示有多少列，null 不会算进去
+select count(distinct 列名) from 表名;--搭配 distinct 可以去重，但是不能写 distinct *，且null 不会算进去
+
+--sum(列名) 返回查询到的数据的总和，纯数字字符串可以进行计算，null 不会参与运算
+select sum(列名) from 表名;
+select sum(表达式) from 表名;
+
+--avg(列名) 返回查询到的数据的平均值，纯数字字符串可以进行计算，null 不会参与运算
+select avg(列名) from 表名;
+select avg(表达式) from 表名;
+
+--max(列名) 返回查询到的数据的最大值，纯数字字符串可以进行计算，null 不会参与运算
+select max(列名) from 表名;
+select max(表达式) from 表名;
+
+--min(列名) 返回查询到的数据的最小值，纯数字字符串可以进行计算，null 不会参与运算
+select min(列名) from 表名;
+select min(表达式) from 表名;
+
+--group by 子句，用来排除分组前的指定列的某个/些数据
+select * 聚合函数(表达式) from 表名 条件 group by 列名;
+
+--having 子句，用来排除分组后的某个/些数据
+select * 聚合函数(表达式) from 表名 group by 列名 having 条件;
+
+--group by + having，用来排除分组前和分组后的指定列的某个/些数据
+select * 聚合函数(表达式) from 表名 条件 group by 列名 having 条件;
+
+--笛卡尔积
+select * from 表1, 表2, ...;
+
+--笛卡尔积（按条件）
+select * from 表1, 表2 where 条件;--条件建议写成：表1.列名 == 表1.列名等。列也建议以这种形式进行指定，避免变量重名
+
+--多组查询（联合查询）+ 聚合查询
+select * from 表1, 表2 where 条件 group by 列名;
+
+--外连接（无主表）
+select * from 表1 join 表2 on 条件;
+
+--左外连接，以左表为基准，保证左表全显示，如果右表中没有就用 null 代替
+select * from 表1 left join 表2 on 条件;
+
+--右外连接，以右表为基准，保证右表全显示，如果左表中没有就用 null 代替
+select * from 表1 right join 表2 on 条件;
+
+--自链接
+select * from 表名 as 别名1, 表名 as 别名2;
+
+--自链接（按条件）
+select * from 表名 as 别名1, 表名 as 别名2 where 条件;
+
+--单行子查询
+select * from 表名 where 列名 = (一个完整的查询语句，且当符号是 = 时，返回结果只能有一行);--= 号可以换成别的
+
+ --多行子查询
+ select * from 表名 where in (一个完整的查询语句);
+ select * from 表名 where not in (一个完整的查询语句);
+
+--联合查询（变量名默认用第一张表的）
+select * from 表名 where union 一个完整的查询语句;--union 允许将两张不同的表的查询结果合并在一起，且会去重。变量名可以不同，但是列数和类型要匹配。
+select * from 表名 where union all 一个完整的查询语句;--union all 不会去重
+
+--SQL查询中各个关键字的执行先后顺序： from > on> join > where > group by > with > having > select > distinct > order by > limit
+
+--判断搜索的返回值是否为 null，为 null 则返回 null
+select ifnull ((一个完整的查询语句), null);
+
+--主键，unique 和外键都会自动生成索引
+
+--查看索引
+show index from 表名;
+
+--创建索引
+create index 索引名 on 表名(列名);
+
+--删除索引
+drop index 索引名 on 表名;--只能删除手动创建的索引
+
+--jdbc url 设置
+"jdbc:mysql://127.0.0.1:3306/test_24_5_5?characterEncoding=utf8&useSSL=false"
+-- url的作用    ip地址   端口    库名          字符编码格式          是否加密
+
+
+
+
+
+
