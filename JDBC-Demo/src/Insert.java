@@ -7,15 +7,15 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
- * ClassName: Add
+ * ClassName: Insert
  * Package: PACKAGE_NAME
- * Description:使用 JDBC 给数据库添加数据的演示代码（包含创建表）
+ * Description:使用 JDBC 给数据库添插入数据的演示代码（包含创建表）
  *
  * @Author 行空XKong
  * @Create 2024/5/6 11:30
  * @Version 1.0
  */
-public class Add {
+public class Insert {
     public static void main(String[] args) throws SQLException {
         //创建 DataSource
         DataSource dataSource = new MysqlDataSource();

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * ClassName: Show
+ * ClassName: Select
  * Package: PACKAGE_NAME
  * Description:使用 JDBC 让数据库显示数据的演示代码（不包含显示表和显示库）
  *
@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @Create 2024/5/6 12:44
  * @Version 1.0
  */
-public class Show {
+public class Select {
     public static void main(String[] args) throws SQLException {
         //创建 DataSource
         DataSource dataSource = new MysqlDataSource();
