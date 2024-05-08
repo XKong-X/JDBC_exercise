@@ -105,4 +105,9 @@ public class Tool {
 
         connection.close();
     }
+
+    public static void exit() {
+        System.out.println("退出系统！");
+        System.exit(0);
+    }
 }

@@ -1,5 +1,7 @@
 package operation;
 
+import tool.Tool;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -47,7 +49,7 @@ public class TableOperation {
                         System.out.println("正在返回上一级菜单...");
                         return;
                     case 0:
-                        Exit.exit();
+                        Tool.exit();
                         break;
                     default:
                         System.out.println("输入错误，请重新输入！");
@@ -80,7 +82,7 @@ public class TableOperation {
                         System.out.println("正在返回上一级菜单...");
                         return;
                     case 0:
-                        Exit.exit();
+                        Tool.exit();
                         break;
                     default:
                         System.out.println("输入错误，请重新输入！");
@@ -113,7 +115,7 @@ public class TableOperation {
                         System.out.println("正在返回上一级菜单...");
                         return;
                     case 0:
-                        Exit.exit();
+                        Tool.exit();
                         break;
                     default:
                         System.out.println("输入错误，请重新输入！");

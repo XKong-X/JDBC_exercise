@@ -1,4 +1,3 @@
-import operation.Exit;
 import operation.TableOperation;
 import tool.Tool;
 
@@ -37,7 +36,7 @@ public class Main {
         while (true) {
             int choiceTable = choiceTableMenu();
             if (choiceTable == 0) {
-                Exit.exit();
+                Tool.exit();
             } else if (choiceTable < 0 || choiceTable > 3) {
                 System.out.println("输入错误，请重新输入！");
             } else {

@@ -17,7 +17,7 @@ import java.util.Scanner;
  * @Create 2024/5/7 13:36
  * @Version 1.0
  */
-public class UserTable {
+public class UserTable implements IOperationTable {
     //在用户表中指定id插入数据
     public static void insert() throws SQLException {
         System.out.println("正在使用：“在用户表中指定id插入数据”的功能");
